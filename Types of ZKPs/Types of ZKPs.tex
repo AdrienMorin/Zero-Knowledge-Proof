@@ -1,0 +1,57 @@
+\section{Types of Zero-Knowledge Proofs}
+
+\subsection{Interactive Zero-Knowledge Proofs (IZKPs)}
+Interactive Zero-Knowledge Proofs involve back-and-forth communication between the Prover and the Verifier. The Verifier sends challenges to the Prover, who must then respond with correct answers based on their knowledge of the secret. After a series of interactions, the Verifier is convinced of the Prover's knowledge without learning the secret.
+
+\subsubsection{An Example: Fiat-Shamir protocol explained in the previous section. Another one interesting : The Graph Isomorphism Problem}
+The Prover claims that they can transform Graph \( G_1 \) into Graph \( G_2 \), meaning the two graphs are isomorphic. The Prover knows the isomorphism function, but doesn’t reveal it. The interaction proceeds as follows:
+\begin{enumerate}
+    \item The Verifier randomly permutes \( G_1 \) or \( G_2 \) and sends the permuted graph \( H \) to the Prover.
+    \item The Prover identifies which graph was permuted and shows the isomorphism between the permuted graph and either \( G_1 \) or \( G_2 \).
+    \item This is repeated many times to ensure the Verifier’s confidence.
+\end{enumerate}
+
+\justify
+\textbf{Strengths:} Simple, well-studied protocol.\\
+\textbf{Weaknesses:} Requires multiple rounds of communication, which can be impractical for certain applications.
+
+\subsection{Non-Interactive Zero-Knowledge Proofs (NIZKPs)}
+Non-Interactive Zero-Knowledge Proofs remove the need for interaction between the Prover and the Verifier. The Prover can generate a proof that the Verifier can check later without further communication. This is especially useful in settings like blockchain, where Verifiers cannot interact with Provers directly.
+
+\subsubsection{Example: zk-SNARKs (Zero-Knowledge Succinct Non-Interactive Argument of Knowledge)}
+zk-SNARKs are a type of NIZKP that are used in privacy-preserving blockchain systems, such as Zcash. They enable efficient, non-interactive proofs that are small and quick to verify. The Prover constructs a proof using a secret (e.g., a private transaction) that the Verifier can later check to ensure the transaction was valid without learning any details about it.
+\justify
+\textbf{Strengths:} Efficient, widely used in blockchain and privacy applications.\\
+\textbf{Weaknesses:} Requires a trusted setup phase where initial parameters are generated securely. If this setup is compromised, the system’s security could be at risk.
+
+\subsection{zk-STARKs (Zero-Knowledge Scalable Transparent Argument of Knowledge)}
+zk-STARKs are a more recent development that addresses some of the limitations of zk-SNARKs, particularly the need for a trusted setup. zk-STARKs rely on cryptographic primitives such as hash functions, making them more transparent and scalable.
+
+\textbf{Advantages of zk-STARKs over zk-SNARKs:}
+\begin{itemize}
+    \item \textbf{Transparency:} zk-STARKs do not require a trusted setup.
+    \item \textbf{Scalability:} zk-STARKs are designed to handle larger proofs and are more efficient in terms of computational complexity.
+    \item \textbf{Post-Quantum Security:} zk-STARKs use hash functions, which are believed to be resistant to quantum computing attacks.
+\end{itemize}
+
+However, zk-STARKs tend to produce larger proofs than zk-SNARKs, making them slightly less practical for some applications where bandwidth is limited.
+
+\subsubsection{Example: Verifiable Computation}
+Imagine a cloud service provider wants to prove to a client that a computation was performed correctly without revealing the inputs or outputs of the computation. zk-STARKs can be used to provide this proof, ensuring the integrity of the computation while preserving privacy.
+
+\subsection{Zero-Knowledge Range Proofs (ZKRP)}
+Zero-Knowledge Range Proofs allow the Prover to prove that a number lies within a certain range without revealing the number itself. This is particularly useful in financial applications, where the Prover might want to prove they have sufficient funds without disclosing the exact amount.
+
+\subsubsection{Example: Confidential Transactions in Cryptocurrencies}
+In a cryptocurrency transaction, a user may want to prove that the amount being sent is within a valid range (e.g., greater than zero and less than their total balance) without revealing the exact amount. ZKRP allows this by constructing a proof that the transaction amount is within the allowed range, while keeping the specific amount hidden.
+
+\justify
+\textbf{Strengths:} Useful for privacy-preserving applications in finance.\\
+\textbf{Weaknesses:} Proof generation can be computationally expensive.
+
+\subsection{Zero-Knowledge Succinct Transparent Argument of Knowledge (zk-STARK)}
+zk-STARKs differ from zk-SNARKs in that they provide scalability and transparency. They don't require a trusted setup, which makes them highly valuable in decentralized environments where trust is difficult to establish. Moreover, zk-STARKs have proven to be resilient against quantum computing attacks due to their reliance on hash-based cryptography.
+
+\justify
+\textbf{Strengths:} No trusted setup, post-quantum security, scalable for large proofs.\\
+\textbf{Weaknesses:} Larger proof sizes than zk-SNARKs, higher bandwidth requirements.

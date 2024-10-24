@@ -1,0 +1,40 @@
+\section{Resolving Man In The Middle vulnerabilities with ZKPs}
+Zero-Knowledge Proofs (ZKP) can help solve the vulnerability of man-in-the-middle (MITM) attacks in identity verification protocols.\cite{distributedlab2024} MITM attacks occur when an attacker intercepts communication between two parties and impersonates them without being detected. Here's an example of a vulnerable identity verification algorithm and how ZKP can address the problem:
+
+\textbf{Vulnerable Algorithm: Simple Password-Based Authentication}
+\begin{enumerate}
+    \item The Verifier sends a challenge (e.g., a random number) to the Prover.
+    \item The Prover hashes their password combined with the challenge and sends the hash back to the Verifier.
+    \item The Verifier compares the received hash with the expected hash to verify the Prover's identity.
+\end{enumerate}
+
+\textbf{Problem:} Even though the challenge is random and the hash changes with each session, an attacker acting as a man-in-the-middle can intercept both the challenge and response, relaying them between the two parties without altering the data. The attacker positions themselves between the Prover and Verifier, making each side think they are communicating directly with each other, while the attacker forwards the messages.
+\\
+Example of a man-in-the-middle attack on a Simple Password-Based Protocol:
+\begin{enumerate}
+    \item \textbf{The Verifier} sends a random challenge \( C \) to the Prover.
+    \item \textbf{The MITM attacker} intercepts \( C \) and forwards it to the real Prover.
+    \item \textbf{The Prover} computes the hash based on their password \( P \) and challenge \( C \), then sends the response \( H(P, C) \) back to the attacker.
+    \item \textbf{The attacker} intercepts this response and forwards it to the Verifier, as if they were the Prover.
+\end{enumerate}
+
+As a result, the Verifier believes it has authenticated the Prover, but was actually communicating with the attacker, who only relayed the messages without needing to know the password.
+
+\textbf{Solution: Zero-Knowledge Proof (ZKP) Authentication}
+\begin{enumerate}
+    \item The Verifier and Prover agree on a secret that only the Prover knows (e.g., a password).
+    \item The Verifier sends a random challenge to the Prover.
+    \item The Prover performs a calculation using their secret (without revealing it) and the challenge, then sends a proof to the Verifier.
+    \item The Verifier uses the proof to confirm the Prover's identity, without learning the secret itself.
+\end{enumerate}
+
+\textbf{Example: Fiat-Shamir Zero-Knowledge Protocol \cite{fiat1986}}
+\begin{enumerate}
+    \item The Verifier sends a random number \(c\) (challenge) to the Prover.
+    \item The Prover computes a value based on their secret \(x\) (without revealing \(x\)) and the challenge \(c\), and sends it to the Verifier.
+    \item The Verifier checks that the response is consistent with the Prover knowing \(x\), without learning \(x\) itself.
+    \item This protocol is executed numerous times and the prover must have all the correct answers to succeed.
+\end{enumerate}
+
+\textbf{How ZKP Solves MITM:}
+In the Fiat-Shamir protocol, even if an attacker intercepts the communication, they cannot replay the messages to impersonate the Prover because they don't know the Prover's secret \(x\). Each challenge requires a new proof, and the attacker cannot generate a valid proof without the secret. Therefore, ZKP ensures secure authentication by preventing MITM attacks, as the secret is never transmitted and cannot be stolen.

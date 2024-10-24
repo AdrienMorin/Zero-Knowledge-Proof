@@ -1,0 +1,55 @@
+\section{Implementation of Zero-Knowledge Proofs in Blockchain and Cryptocurrencies}
+\justify
+As we saw just before, the implementation of Zero-Knowledge Proofs (ZKPs) in blockchain technology and cryptocurrencies is one of the most significant advancements in enhancing both privacy and scalability in decentralized systems. But let's go a little bit further into details with some examples.
+
+\subsection{zk-SNARKs in Zcash: Privacy-Preserving Transactions}
+\justify
+Zcash \cite{ZcashDocs} is one of the most well-known privacy-centric cryptocurrencies that leverage ZKPs, specifically \textit{zk-SNARKs} (Zero-Knowledge Succinct Non-Interactive Argument of Knowledge). Zcash was developed to offer users the option of sending transactions that preserve the privacy of both the sender and the receiver, as well as the transaction amount. \cite{sasson2014zcash} In traditional blockchain systems like Bitcoin, although the identities of the users are pseudonymous, the details of each transaction (such as amounts and addresses) are recorded on the public ledger and can be traced. This can lead to privacy concerns, especially when adversaries de-anonymize users.
+\\
+With zk-SNARKs, Zcash introduces the concept of \textit{shielded transactions}, which allow users to prove that they have the funds to send a transaction without revealing the transaction amount or any other identifying details. The proof is submitted to the blockchain, and the transaction is validated, but no sensitive information is disclosed. This process works as follows:
+\begin{itemize}
+    \item A user generates a zk-SNARK proof that proves they own a certain amount of Zcash and that they are transferring part of this amount to a recipient.
+    \item The proof is verified by the nodes on the Zcash network without revealing the amount being transferred or the identity of the sender and receiver.
+    \item The transaction is recorded on the blockchain, but no sensitive information is leaked.
+\end{itemize}
+
+This mechanism provides full privacy to users while maintaining the integrity and security of the blockchain. It is important to note, however, that not all Zcash transactions are shielded. Users can choose to perform \textit{transparent transactions}, similar to Bitcoin, or fully shielded ones using zk-SNARKs.
+
+\subsection{zk-Rollups: Enhancing Scalability on Ethereum}
+
+While ZKPs are often associated with privacy, they also have significant applications in improving scalability, especially in public blockchains such as Ethereum. One of the challenges facing blockchains is the high computational and storage costs required to process and verify every transaction. As more users and applications join the network, it becomes increasingly difficult for the blockchain to scale without sacrificing performance or decentralization.
+
+\textit{zk-Rollups} \cite{loopringZKRollups} provide an elegant solution to this problem by using ZKPs to batch multiple transactions into a single proof, reducing the amount of data that needs to be stored on-chain. In a zk-Rollup, transactions are aggregated off-chain, and a cryptographic proof (often using zk-SNARKs or zk-STARKs) is generated that verifies the correctness of the batch of transactions. This proof is then submitted to the Ethereum blockchain, and the network only needs to verify the proof rather than each individual transaction.
+
+Here’s how zk-Rollups work in practice:
+
+\begin{itemize}
+    \item A large number of transactions are processed off-chain by a zk-Rollup operator, who generates a zk-SNARK or zk-STARK proof that these transactions have been processed correctly.
+    \item The operator submits the proof to the Ethereum network, along with a minimal amount of on-chain data needed to reconstruct the state of the blockchain.
+    \item Ethereum nodes verify the zk-SNARK proof, which attests that all off-chain transactions are valid, without the need to individually verify each transaction.
+\end{itemize}
+
+This approach significantly reduces the amount of on-chain computation and storage required, allowing Ethereum to process more transactions per second while maintaining security and decentralization. zk-Rollups have been introduced in the Layer 2 scaling solution and are already being implemented in several Ethereum projects, including Loopring and zkSync.
+
+\subsection{Aztec Protocol: Confidentiality on Ethereum}
+
+Aztec \cite{aztecProtocol} is another project that implements ZKPs on the Ethereum blockchain, with a focus on providing confidentiality for decentralized finance (DeFi) transactions. DeFi applications, such as lending platforms and decentralized exchanges, are built on open, transparent blockchains like Ethereum, where transaction details are publicly visible. However, this transparency can lead to privacy concerns, as users may not want their financial activities exposed to the world.
+\\
+The \textit{Aztec Protocol} uses ZKPs to enable confidential transactions on Ethereum. With Aztec, users can perform DeFi operations, such as borrowing, lending, and trading, while keeping transaction details private. Aztec achieves this by generating zero-knowledge proofs that hide sensitive information, such as the transaction amount, while still proving that the transaction is valid according to the underlying smart contract.
+
+The workflow in Aztec can be summarized as follows:
+
+\begin{itemize}
+    \item A user wants to perform a confidential transaction on a DeFi platform.
+    \item The user generates a zero-knowledge proof that proves the validity of the transaction (e.g., that they have sufficient collateral) without revealing the amount or other details.
+    \item The proof is submitted to the Ethereum blockchain and verified by the Aztec smart contract, which enforces the rules of the DeFi protocol.
+    \item The transaction is processed, and the user’s privacy is preserved, as no sensitive data is made public.
+\end{itemize}
+
+Aztec is a powerful example of how ZKPs can be used to maintain the transparency and security of blockchain systems while also protecting user privacy. As privacy concerns in DeFi continue to grow, the use of ZKPs like those in Aztec is expected to become increasingly important.
+
+\subsection{zk-STARKs: Post-Quantum Security in Blockchain}
+
+While zk-SNARKs have become widely adopted, they rely on cryptographic assumptions that may be vulnerable to quantum computing in the future. To address this, zk-STARKs (Zero-Knowledge Scalable Transparent Arguments of Knowledge) were developed as a post-quantum alternative to zk-SNARKs. zk-STARKs do not require a trusted setup and are based on cryptographic hash functions, which are believed to be secure against quantum attacks.
+\\
+zk-STARKs are designed to provide scalable zero-knowledge proofs with larger data sets, making them suitable for applications like decentralized rollups and privacy-preserving blockchain systems. Although zk-STARKs generate larger proof sizes compared to zk-SNARKs, they offer better long-term security and scalability. Projects such as StarkWare are leading the development of zk-STARK-based solutions for Ethereum scaling and privacy.

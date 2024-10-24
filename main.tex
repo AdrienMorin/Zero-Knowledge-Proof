@@ -1,0 +1,33 @@
+\documentclass[article, onecolum]{IEEEtran}
+  	\usepackage[pdftex]{graphicx}
+  	\graphicspath{{../pdf/}{../jpeg/}}
+	\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+	\usepackage[document]{ragged2e}
+        \usepackage[backend=biber,style=numeric]{biblatex}
+        \addbibresource{references.bib}
+
+\begin{document}
+\title{\LARGE Zero Knowledge Proof - Blockchain}
+
+% \author{\authorblockN{Leave Author List blank for your IMS2013 Summary (initial) submission.\\ IMS2013 will be rigorously enforcing the new double-blind reviewing requirements.}
+% \authorblockA{\authorrefmark{1}Leave Affiliation List blank for your Summary (initial) submission}}
+
+ \author{\authorblockN{A. MORIN }
+ \\
+ \authorblockA{morinadrien71@gmail.com}
+}
+\maketitle
+
+\IEEEpeerreviewmaketitle
+
+\input{Introduction}
+\input{Simple Examples/Simple examples}
+\input{Man in the middle/Man in the middle}
+\input{Types of ZKPs/Types of ZKPs}
+\input{Application of Zero-Knowledge Proofs/Application of Zero-Knowledge Proofs}
+\input{Application of Zero-Knowledge Proofs/Application in blockchain}
+\input{Application of Zero-Knowledge Proofs/Challenges}
+\input{Conclusion}
+\printbibliography
+
+\end{document}
